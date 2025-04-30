@@ -232,7 +232,7 @@ public class Transaction {
 
     public static void previousBalance(){
 
-        // for the Transaction class we will refer to as `money` inside the Array List, keep adding the positive amounts of each transaction and add the total to the                   account balance. 
+        // for the Transaction class we will refer to as `money` inside the Array List, keep adding the positive amounts of each transaction and add the total to the account balance. 
         for (Transaction money : transactionArrayInfo){
             accountBalance += money.getAmount();
         }
@@ -253,9 +253,13 @@ public class Transaction {
 
 
 
+
+
 - The user will be taken to the main menu where they will be able to either Add a deposit, make a payment, show current account balance, or see the Ledger menu. 
 - They can also Exit the application if they want.
 - Make sure there is also a way to write on the file, so the users deposits and methods can be documented.
+
+
 
 
 ```java
@@ -379,7 +383,11 @@ public class Transaction {
 ```
 
 
+
+
 - ***Methods for confirming the users deposit and payment***
+
+
 
   ```java
     // THESE METHODS WILL ASK THE USER TO CONFIRM A DEPOSIT OR A PAYMENT.

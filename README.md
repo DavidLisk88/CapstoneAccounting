@@ -166,11 +166,14 @@ public class Transaction {
     // MAIN METHOD
 
     public static void main(String[] args) {
+        // I know that I want the file to be read first.
+        // So, I make a method.
         readFileFirst();
         previousBalance();
 
         System.out.println("WELCOME...");
         waiting();
+        divider();
         mainMenu();
     }
 
@@ -401,7 +404,7 @@ public class Transaction {
             // Ask if the users held amount is correct.
             System.out.printf("\nYou entered:\nAmount: $%.2f ", holdAmount[0]);
             System.out.print("\n\nIs this correct? Y or N:  ");
-            String confirmInput = userInput.nextLine().toLowerCase().toUpperCase();
+            String confirmInput = userInput.nextLine().trim().toUpperCase();
 
             // If yes, then return the statement that was already true. If no, then return the statement sd false.
             if(confirmInput.equals("Y")){
@@ -416,7 +419,7 @@ public class Transaction {
                     return false;
                 }
                 try{
-                    holdAmount[0] = Double.parseDouble(userInput.nextLine().trim());
+                    holdAmount[0] = Double.parseDouble(cancelInput);
                 } catch (NumberFormatException e) {
                     throw new RuntimeException(e);
                 }
@@ -754,7 +757,7 @@ public class Transaction {
 
 
     public static void showTransactionsForPreviousYear(){
-        System.out.println("CURRENT YEAR TRANSACTIONS\n");
+        System.out.println("PREVIOUS YEAR TRANSACTIONS\n");
 
         // Stuff the localDateTime function inside a string variable and ensure that we grab the current year and subtract 1 from that. 
         String currentYear = String.valueOf(LocalDateTime.now().getYear() - 1);
@@ -817,9 +820,10 @@ public class Transaction {
         System.out.println("\nWould you like to do something else?");
         System.out.print("Please enter Y or N: ");
 
-        String doSomething = userInput.nextLine().trim().toUpperCase();
+       
 
         while(true){
+         String doSomething = userInput.nextLine().trim().toUpperCase();
             switch (doSomething){
                 case "Y":
                     System.out.println("\nOkay, one moment...");
@@ -845,9 +849,10 @@ public class Transaction {
         System.out.println("\nWould you like to do something else?");
         System.out.print("Please enter Y or N: ");
 
-        String doSomething = userInput.nextLine().trim().toUpperCase();
+        
 
         while(true){
+          String doSomething = userInput.nextLine().trim().toUpperCase();
             switch (doSomething){
                 case "Y":
                     System.out.println("\nOkay, one moment...\n");

@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -198,6 +197,7 @@ public class Main {
         try {
             divider();
             System.out.println("How much would you like to add?");
+            System.out.print("Enter:  ");
             double[]amount = new double[1];
             amount[0] = Double.parseDouble(userInput.nextLine().trim());
 
@@ -272,7 +272,97 @@ public class Main {
 
 
 
+    // THESE METHODS WILL ASK THE USER TO CONFIRM A DEPOSIT OR A PAYMENT.
+    public static boolean confirmDeposit(double [] holdAmount){
+        while(true){
+            divider();
+            System.out.printf("\nYou entered:\nAmount: $%.2f ", holdAmount[0]);
+            System.out.print("\n\nIs this correct? Y or N:  ");
+            String confirmInput = userInput.nextLine().trim().toUpperCase();
 
+            if(confirmInput.equals("Y")){
+                return true;
+            } else if(confirmInput.equals("N")) {
+                System.out.print("Enter the correct amount or X to cancel: ");
+
+                String cancelInput = userInput.nextLine().trim();
+
+                if(cancelInput.equalsIgnoreCase("X")){
+                    doSomethingElseMain();
+                    return false;
+                }
+                try{
+                    holdAmount[0] = Double.parseDouble(cancelInput);
+                } catch (NumberFormatException e) {
+                    throw new RuntimeException(e);
+                }
+
+            } else {
+                System.out.println("Invalid option. Please enter Y or N.");
+            }
+        }
+    }
+
+    public static boolean confirmPayment(String[] holdVendor, double[] holdAmount){
+        while(true){
+            divider();
+            System.out.printf("\nName: %s\nAmount $%.2f\n", holdVendor[0], holdAmount[0]);
+            System.out.println("\n\nIs this correct? Y or N: ");
+            String confirmInput = userInput.nextLine().trim().toUpperCase();
+
+            if(confirmInput.equals("Y")){
+                return true;
+            } else if (confirmInput.equals("N")){
+                System.out.println("What would you like to change?");
+                System.out.println("1) Name");
+                System.out.println("2) Amount");
+                System.out.println("3) Cancel (go back)");
+
+                String userChoiceForPaymentConfirmation = userInput.nextLine().trim();
+
+                if(userChoiceForPaymentConfirmation.equals("1")){
+                    System.out.println("Enter Name or X to cancel:  ");
+
+                    String cancelName = userInput.nextLine().trim();
+
+                    if(cancelName.equalsIgnoreCase("X")){
+                        continue;
+                    }
+
+
+                    holdVendor[0] = capitalizedwords(cancelName);
+
+
+                } else if (userChoiceForPaymentConfirmation.equals("2")){
+                    System.out.println("Enter Amount: ");
+                    String cancelAmount = userInput.nextLine().trim();
+
+                    if(cancelAmount.equalsIgnoreCase("X")){
+                        continue;
+                    }
+
+
+
+                    try {
+                        holdAmount[0] = Double.parseDouble(cancelAmount);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid amount");
+                        throw new RuntimeException(e);
+                    }
+                }
+                else if (userChoiceForPaymentConfirmation.equals("3")){
+                    System.out.println("Cancelling...");
+                    doSomethingElseMain();
+                    return false;
+
+                } else {
+                    System.out.println("Invalid Choice.");
+                }
+            } else {
+                System.out.print("Invalid input. Please enter Y or N: ");
+            }
+        }
+    }
 
 
 
@@ -506,9 +596,10 @@ public class Main {
         divider();
         System.out.print("Please enter Y or N: ");
 
-        String doSomething = userInput.nextLine().trim().toUpperCase();
+
 
         while(true){
+            String doSomething = userInput.nextLine().trim().toUpperCase();
             switch (doSomething){
                 case "Y":
                     System.out.println("\nOkay, one moment...");
@@ -517,6 +608,7 @@ public class Main {
                     return;
                 case "N":
                     System.out.println("\nOkay, have a good day!");
+                    divider();
                     waiting();
                     userInput.close();
                     System.exit(0);
@@ -532,9 +624,10 @@ public class Main {
         divider();
         System.out.print("Please enter Y or N: ");
 
-        String doSomething = userInput.nextLine().trim().toUpperCase();
+
 
         while(true){
+            String doSomething = userInput.nextLine().trim().toUpperCase();
             switch (doSomething){
                 case "Y":
                     System.out.println("\nOkay, one moment...\n");
@@ -543,6 +636,7 @@ public class Main {
                     return;
                 case "N":
                     System.out.println("\nOkay, have a good day!");
+                    divider();
                     waiting();
                     userInput.close();
                     System.exit(0);
@@ -621,7 +715,7 @@ public class Main {
         divider();
         System.out.println("Results loading...\n");
         waiting();
-        System.out.println("CURRENT YEAR TRANSACTIONS\n");
+        System.out.println("PREVIOUS YEAR TRANSACTIONS\n");
 
         String currentYear = String.valueOf(LocalDateTime.now().getYear() - 1);
 
@@ -667,97 +761,7 @@ public class Main {
 
 
 
-    // THESE METHODS WILL ASK THE USER TO CONFIRM A DEPOSIT OR A PAYMENT.
-    public static boolean confirmDeposit(double [] holdAmount){
-        while(true){
-            divider();
-            System.out.printf("\nYou entered:\nAmount: $%.2f ", holdAmount[0]);
-            System.out.print("\n\nIs this correct? Y or N:  ");
-            String confirmInput = userInput.nextLine().toLowerCase().toUpperCase();
 
-            if(confirmInput.equals("Y")){
-                return true;
-            } else if(confirmInput.equals("N")) {
-                System.out.print("Enter the correct amount or X to cancel: ");
-
-                String cancelInput = userInput.nextLine().trim();
-
-                if(cancelInput.equalsIgnoreCase("X")){
-                    doSomethingElseMain();
-                    return false;
-                }
-                try{
-                    holdAmount[0] = Double.parseDouble(userInput.nextLine().trim());
-                } catch (NumberFormatException e) {
-                    throw new RuntimeException(e);
-                }
-
-            } else {
-                System.out.println("Invalid option. Please enter Y or N.");
-            }
-        }
-    }
-
-    public static boolean confirmPayment(String[] holdVendor, double[] holdAmount){
-        while(true){
-            divider();
-            System.out.printf("\nName: %s\nAmount $%.2f\n", holdVendor[0], holdAmount[0]);
-            System.out.println("\n\nIs this correct? Y or N: ");
-            String confirmInput = userInput.nextLine().trim().toUpperCase();
-
-            if(confirmInput.equals("Y")){
-                return true;
-            } else if (confirmInput.equals("N")){
-                System.out.println("What would you like to change?");
-                System.out.println("1) Name");
-                System.out.println("2) Amount");
-                System.out.println("3) Cancel (go back)");
-
-                String userChoiceForPaymentConfirmation = userInput.nextLine().trim();
-
-                if(userChoiceForPaymentConfirmation.equals("1")){
-                    System.out.println("Enter Name or X to cancel:  ");
-
-                    String cancelName = userInput.nextLine().trim();
-
-                    if(cancelName.equalsIgnoreCase("X")){
-                        continue;
-                    }
-
-
-                    holdVendor[0] = capitalizedwords(userInput.nextLine().trim());
-
-
-                } else if (userChoiceForPaymentConfirmation.equals("2")){
-                    System.out.println("Enter Amount: ");
-                    String cancelAmount = userInput.nextLine().trim();
-
-                    if(cancelAmount.equalsIgnoreCase("X")){
-                        continue;
-                    }
-
-
-
-                    try {
-                        holdAmount[0] = Double.parseDouble(userInput.nextLine().trim());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid amount");
-                        throw new RuntimeException(e);
-                    }
-                    }
-                else if (userChoiceForPaymentConfirmation.equals("3")){
-                    System.out.println("Cancelling...");
-                    doSomethingElseMain();
-                    return false;
-
-                } else {
-                    System.out.println("Invalid Choice.");
-                }
-            } else {
-                System.out.print("Invalid input. Please enter Y or N: ");
-            }
-        }
-    }
 
 
 

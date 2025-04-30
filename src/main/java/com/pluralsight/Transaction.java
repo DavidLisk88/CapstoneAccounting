@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 public class Transaction {
+<<<<<<< HEAD
 
     private String date;
     private String time;

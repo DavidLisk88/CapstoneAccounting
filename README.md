@@ -1,5 +1,39 @@
 # **Accounting Ledger Capstone**
 
+
+# Most interesting part of the code
+
+I was able to figure out how to allow the user to keep track of their total balance on the account.
+
+```java
+
+// static double to use in other methods when finding the account balance.
+ static double accountBalance = 0.0;
+
+
+    // THIS METHOD WILL SHOW THE CURRENT ACCOUNT BALANCE
+
+    public static void showTotalBalance(ArrayList<Transaction> transactions){
+        // the account balance will start at 0.
+        double balance = 0.0;
+
+        // for each transaction in the transactions array that we will temporarily call 'totalBalance'.
+        for(Transaction totalBalance : transactions){
+            // then get the amount from each transaction and add it to the balance. 
+            balance += totalBalance.getAmount();
+        }
+        divider();
+        // format the print statement. 
+        System.out.printf("\nCURRENT BALANCE: $%.2f\n", balance);
+        waiting();
+        doSomethingElseMain();
+    }
+
+```
+
+
+
+
 # PART 1
 ### Construct the transactions. What pieces of information will each transaction contain? 
 

@@ -143,32 +143,6 @@ public class Transaction {
     static HashMap<String, ArrayList<Transaction>> transactionHashMap = new HashMap<>();
 ```
 
-   
-
-- Variables for Date and Time along with a formatter to correctly formatting the date and time.
-  
-
-  
-
-```java
-    static LocalDateTime dateVariable = LocalDateTime.now();
-    static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
-```
-
-
-
-- Pull the LocalDateTime variable and the formatter together into a String.
-- Then use a splitter to separate the date and time from each other by the `" "`.
-  
-
-  ```java
-      static String changeDateFormatToString = dateVariable.format(dateFormatter);
-      static String[] splitDate = changeDateFormatToString.split(" ");
-      static String yearMonthDay = splitDate[0];
-      static String hourMinuteSecond = splitDate[1];
-  ```
-
-
   
 
 - Import a new Scanner for the users input.

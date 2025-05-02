@@ -343,6 +343,23 @@ public class Transaction {
             accountBalance += amount[0];
 
 
+            // Create a LocalDateTime variable to get the current date and time.
+            // Make a DateTime formatter to create the format of the Date and the time.
+            LocalDateTime dateVariable = LocalDateTime.now();
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+
+            // I am going to prepare to split the date format by the date and the time.
+            // First, I make a string variable to connect the dateVariable and dateFormatter so the date can be read as a string.
+            String changeDateFormatToString = dateVariable.format(dateFormatter);
+
+            // I create a string variable to split the date string I just made.
+            String[] splitDate = changeDateFormatToString.split(" ");
+
+            // Then, I establish each part of the split DateTime variable.
+            String yearMonthDay = splitDate[0];
+            String hourMinuteSecond = splitDate[1];
+
+
             // Now use the transaction class to make a new varibale that will hold the new input from the user after making a deposit. 
             Transaction deposit = new Transaction(yearMonthDay, hourMinuteSecond, "Personal Deposit", "David Lisk", amount[0]);
 
@@ -396,6 +413,13 @@ public class Transaction {
 
                 // Since the user is making a payment, this time the amount that they confirmed will be subtracted from the total balance. 
                 accountBalance -= amount[0];
+
+
+    LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String[] splitDate = now.format(formatter).split(" ");
+            String yearMonthDay = splitDate[0];
+            String hourMinuteSecond = splitDate[1];
 
 
             // Make a variable to hold the new payment that will be logged onto the file.
